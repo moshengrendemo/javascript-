@@ -1,0 +1,50 @@
+# javascript-
+javascript修炼之道研读笔记
+JavaScript中点击事件的写法
+
+<button id="btn">click</button>
+var btn=document.getElementById('btn');
+第一种：
+
+btn.onclick=function(){
+alert('hello world');
+}
+消除事件：btn.onclick=null;//就不会弹出框了
+第二种：
+
+btn.addEventListener('click',function(){alert('hello world')},false);
+btn.addEventListener('click',function(){alert(this.id)},false);
+
+第三种：
+
+function demo(){
+ 
+　　alert('hello');
+}
+<button id="btn" onclick="demo()">click</button>
+
+
+下面给大家介绍js触发按钮点击事件
+模拟JS触发按钮点击功能
+<html> 
+  <head> 
+    <title>usually function</title> 
+  </head> 
+  <script> 
+function load(){ 
+  //下面两种方法效果是一样的 
+  document.getElementById("target").onclick(); 
+  document.getElementById("target").click(); 
+} 
+function test(){ 
+  alert("test"); 
+} 
+</script> 
+  <body onload="load()"> 
+    <button id="target" onclick="test()">test</button> 
+  </body> 
+<html>
+
+备注：
+btnObj.click()是真正地用程序去点击按钮，触发了按钮的onclick（）事件
+btnObj.onclick()只是简单地调用了btnObj的onclick所指向的方法，只是调用方法而已，并未触发事件
