@@ -1,0 +1,128 @@
+# javascript-
+javascript修炼之道研读笔记
+如何循环遍历获取ul li ，实现点击效果
+JS和jQuery中ul li遍历获取对应的下角标(经典的js问题)
+
+首先先看代码:
+html代码部分:
+<div id="div">
+            <ul>
+                <li>11</li>
+                <li>22</li>
+                <li>33</li>
+                <li>44</li>
+                <li>55</li>
+                <li>66</li>
+            </ul>
+</div>
+
+对应的JS的代码部分:
+
+var list = document.getElementsByTagName("li");
+for(var i = 0; i < list.length; i++) {
+            list[i].onclick = function() {
+               alert("我是"+i);
+            }
+        }
+        
+上面当我们在ul li遍历时，点击每一个li标签，往往取不到对应的下角标，在控制台打印出来的都是最后一个的值6。
+为什么会产生这样的问题呢？        
+
+海_哥_哥
+越努力，越幸运！
+
+JS和jQuery中ul li遍历获取对应的下角标
+
+首先先看代码:
+
+html代码部分:
+
+按 Ctrl+C 复制代码
+
+<div id="div">
+            <ul>
+                <li>1111111</li>
+                <li>2222222</li>
+                <li>3333333</li>
+                <li>4444444</li>
+                <li>5555555</li>
+                <li>6666666</li>
+            </ul>
+        </div>
+按 Ctrl+C 复制代码
+ 
+
+对应的JS的代码部分:
+
+var list = document.getElementsByTagName("li");
+for(var i = 0; i < list.length; i++) {
+            list[i].onclick = function() {
+               // console.log(i);
+                alert("我是"+i);
+            }
+        }
+ 
+
+上面当我们在ul li遍历时，点击每一个li标签，往往取不到对应的下角标，在控制台打印出来的都是最后一个的值6。
+
+为什么会产生这样的问题呢？
+
+解决方案一:
+JS方法    使用this闭包
+var list = document.getElementsByTagName("li");
+        for(var i = 0; i < list.length; i++) {
+            list[i].index = i;
+            list[i].onclick = function() {
+                alert("我是"+this.index);
+                //console.log(this.index);
+            }
+        }
+        
+解决方案二:
+jquery方法    记得别忘了引入jQuery框架。
+
+$(function() {
+            $('#div').find('li').each(function() {
+                $(this).click(function() {
+                    console.log($(this).index());
+                })
+            })
+
+        })
+        
+   解决方案三：
+
+直接利用jquery中的index
+$(function() {
+            $("li").on("click", function() {
+                var i = $(this).index(); //当前索引值
+                alert(i);
+            })
+        })
+解决方案四：
+window.onload = onclickList;
+        function onclickList() {
+            var list = document.getElementsByTagName("li");　　
+            for(var i = 0; i < list.length; i++)　　 {
+                list[i].onclick = (function(i) {　　
+                    return function() {　　　　
+                        alert("我是第" + (i + 1) + "个list");　　
+                    }
+                }(i))　　
+            }
+        }
+
+解决方案五：
+
+$(function() {
+            $('ul li').click(function() {
+                alert($(this).index() + 1);
+                return false;
+            });
+        });
+        
+        
+  以上是关于ul li 遍历获取的问题
+  
+  文章参考链接
+  http://www.cnblogs.com/wangzhenhai/p/6484933.html
